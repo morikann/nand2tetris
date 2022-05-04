@@ -14,24 +14,30 @@ CHIP Mux {
     OUT out;
 
     PARTS:
-    Not(in=a, out=notA);
-    Not(in=b, out=notB);
-    Not(in=sel, out=notSel);
+    // 簡単化ver
+    Not(in=sel, out=selNot);
+    And(a=a, b=selNot, out=w1);
+    And(a=b, b=sel, out=w2);
+    Or(a=w1, b=w2, out=out);
 
-    And(a=a, b=notB, out=w1);
-    And(a=w1, b=notSel, out=x1);
+    // Not(in=a, out=notA);
+    // Not(in=b, out=notB);
+    // Not(in=sel, out=notSel);
 
-    And(a=a, b=b, out=w2);
-    And(a=w2, b=notSel, out=x2);
+    // And(a=a, b=notB, out=w1);
+    // And(a=w1, b=notSel, out=x1);
 
-    And(a=notA, b=b, out=w3);
-    And(a=w3, b=sel, out=x3);
+    // And(a=a, b=b, out=w2);
+    // And(a=w2, b=notSel, out=x2);
 
-    And(a=a, b=b, out=w4);
-    And(a=w4, b=sel, out=x4);
+    // And(a=notA, b=b, out=w3);
+    // And(a=w3, b=sel, out=x3);
 
-    Or(a=x1, b=x2, out=y1);
-    Or(a=x3, b=x4, out=y2);
+    // And(a=a, b=b, out=w4);
+    // And(a=w4, b=sel, out=x4);
 
-    Or(a=y1, b=y2, out=out);
+    // Or(a=x1, b=x2, out=y1);
+    // Or(a=x3, b=x4, out=y2);
+
+    // Or(a=y1, b=y2, out=out);
 }
